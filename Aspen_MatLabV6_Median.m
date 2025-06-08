@@ -2,9 +2,8 @@
 clear
 
 pause(5)
-%cd 'C:\Users\GFCS\Desktop\Kenneth\14-01-2025\Median\'
 
-rmatdatestr = '14_01_2025_Base_';
+rmatdatestr = 'Base_';
 
 
 Recirculation = 1.5*10^6;
@@ -172,7 +171,7 @@ for i = 1:nSub
             bmat{1,i} = load([rmatdatestr,num2str(i),'.mat']);
             rmat{1,i} = bmat{i}.rmat;
         else
-            warning(['rmat ',num2str(i),' was not found, continueing...']);
+            warning(['rmat ',num2str(i),' was not found, continuing...']);
 
         end
 end
@@ -194,7 +193,7 @@ try
         Aspen{i} = actxserver('Apwn.Document.39.0');
         pause(0.5);
         [~ , mess]=fileattrib; % get attributes of folder (Necessary to establish the location of the simulation)
-        Simulation_Name{i} = append('Model4_V11_Median_v2_',num2str(i));% Aspen{i} Plus Simulation Name
+        Simulation_Name{i} = append('Aspen_Model_',num2str(i));% Aspen{i} Plus Simulation Name
         pause(0.5);
         Aspen{i}.invoke('InitFromArchive2',[mess.Name '\' Simulation_Name{i} '.apw']);
         pause(0.5);
@@ -618,7 +617,7 @@ catch
     delete(gcp('nocreate'))
     disp('Restarting the script in 15 seconds...');
     pause(15)
-    Aspen_MatLabV6_Median
+    Aspen_MatLab
 end
 
 
@@ -635,15 +634,6 @@ toc
 save('Log_File.mat','Log_File');
 save([rmatdatestr,'.mat'],'rmat')
 time = toc
-
-disp('-------------------------------')
-disp('Median impurities are done...')
-disp('-------------------------------')
-disp('Going to do High impurities...')
-disp('-------------------------------')
-
-%cd 'C:\Users\GFCS\Desktop\Kenneth\14-01-2025\High\'
-%Aspen_MatLabV6_High
 
 
 function parsave(fname, rmat)
